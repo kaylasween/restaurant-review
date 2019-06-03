@@ -30,10 +30,29 @@ export default class App extends Component{
               <View key={place.name} style={{
                 flexDirection: 'row'
               }}>
-                <Text>{index + 1}</Text>
-                <Text>{place.name}</Text>
-                <Text style={{color: 'grey'}}>{place.address}</Text>
-                <Text>Info</Text>
+                <View style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Text>{index + 1}</Text>
+                </View>
+
+                <View style={{
+                  flexDirection: 'column',
+                  flex: 8
+                }}>
+                  <Text>{place.name}</Text>
+                  <Text style={{color: 'grey'}}>{place.address}</Text>
+                </View>
+
+                <View style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Text>Info</Text>
+                </View>
               </View>
             )
           })
