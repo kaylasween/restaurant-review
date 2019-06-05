@@ -4,7 +4,8 @@ import {
   Text, 
   StyleSheet,
   TextInput,
-  Platform
+  Platform,
+  ScrollView
 } from 'react-native';
 
 import Header from 'components/Header';
@@ -12,7 +13,24 @@ import Header from 'components/Header';
 const restaurants = [
   {name: 'React Cafe', address: '123 Anywhere Street'},
   {name: 'Fancy Restaurant', address: '799 Main Street'},
-  {name: 'Taco Place', address: '550 Maple Road'}
+  {name: 'Taco Place', address: '550 Maple Road'},
+  {name: 'Tony\'s Diner', address: '4104 College St'},
+  {name: 'Pasta Central', address: '706 Central St'},
+  {name: 'Burger Builder', address: '4869 Hamilton Dr'},
+  {name: 'Pizza Express', address: '1049 Bird St'},
+  {name: 'Teriyaki To Go', address: '1885 Tea Berry Ln'},
+  {name: 'Maroon Deli', address: '1082 Stuart St'},
+  {name: 'Prime Bar and Grill', address: '1848 Fairfax Dr'},
+  {name: 'Dumpling House', address: '747 Kelly Dr'},
+  {name: 'Hot Chicken', address: '1816 Olive St'},
+  {name: 'Luna\'s Tap Room', address: '3256 Spirit Dr'},
+  {name: 'Quick Sandwich Shop', address: '2587 Cherry Ridge Dr'},
+  {name: 'Bobby\'s Burgers', address: '4152 Berkley St'},
+  {name: 'Turnpike Diner', address: '4571 Central Ave'},
+  {name: 'Bombay Express', address: '65 Queens Ln'},
+  {name: 'Coffee Central', address: '3228 Oakwood Cr'},
+  {name: 'King\'s Garden', address: '2935 Victoria Ct'},
+  {name: 'Salads and More', address: '2454 Preston St'}
 ];
 
 export default class App extends Component{
@@ -36,7 +54,8 @@ export default class App extends Component{
           }}
           value={this.state.search}
         />
-
+        
+        <ScrollView contentContainerStyle={{paddingTop: 30}}>
         {
           restaurants.filter(place => {
             return !this.state.search || 
@@ -65,6 +84,7 @@ export default class App extends Component{
             )
           })
         }
+        </ScrollView>
       </View>
     );
   }
@@ -88,7 +108,6 @@ const styles = StyleSheet.create({
     color: 'grey'
   },
   input: {
-    marginBottom: 30,
     padding: 10,
     paddingHorizontal: 20,
     fontSize: 16,
