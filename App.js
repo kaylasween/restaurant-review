@@ -1,14 +1,17 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text, 
   StyleSheet,
   TextInput,
   Platform,
-  ScrollView
-} from 'react-native';
+  ScrollView,
+  FlatList
+} from 'react-native'
 
-import Header from 'components/Header';
+import Header from 'components/Header'
+
+import RestaurantRow from 'components/RestaurantRow'
 
 const restaurants = [
   {name: 'React Cafe', address: '123 Anywhere Street'},
@@ -31,7 +34,7 @@ const restaurants = [
   {name: 'Coffee Central', address: '3228 Oakwood Cr'},
   {name: 'King\'s Garden', address: '2935 Victoria Ct'},
   {name: 'Salads and More', address: '2454 Preston St'}
-];
+]
 
 export default class App extends Component{
 
@@ -54,59 +57,27 @@ export default class App extends Component{
           }}
           value={this.state.search}
         />
-        
-        <ScrollView contentContainerStyle={{paddingTop: 30}}>
-        {
-          restaurants.filter(place => {
-            return !this.state.search || 
-              place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1
-          }).map((place, index) => {
-            return (
-              <View key={place.name} style={[
-                styles.row,
-                {
-                  backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7'
-                }
-              ]}>
-                <View style={styles.edges}>
-                  <Text>{index + 1}</Text>
-                </View>
 
-                <View style={styles.nameAddress}>
-                  <Text>{place.name}</Text>
-                  <Text style={styles.addressText}>{place.address}</Text>
-                </View>
-
-                <View style={styles.edges}>
-                  <Text>Info</Text>
-                </View>
-              </View>
-            )
-          })
-        }
-        </ScrollView>
+        <FlatList
+          data={
+            restaurants.filter(place => {
+              return !this.state.search || 
+                place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1
+            })
+          }
+          renderItem={({ item, index }) => 
+            <RestaurantRow place={item} index={index} />
+          }
+          keyExtractor={item => item.name}
+          initialNumToRender={16}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row'
-  },
-  edges: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 5
-  }, 
-  nameAddress: {
-    flexDirection: 'column',
-    flex: 8
-  },
-  addressText: {
-    color: 'grey'
-  },
+  
   input: {
     padding: 10,
     paddingHorizontal: 20,
@@ -116,4 +87,4 @@ const styles = StyleSheet.create({
     borderColor: '#DDDDDD',
     backgroundColor: '#F5F5F5'
   }
-});
+})
