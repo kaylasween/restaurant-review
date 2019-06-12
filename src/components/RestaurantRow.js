@@ -10,6 +10,8 @@ import {
     Image
 } from 'react-native'
 
+import Stars from 'components/Stars'
+
 export default class RestaurantRow extends Component {
 
     state = {
@@ -31,24 +33,25 @@ export default class RestaurantRow extends Component {
 
         return (
             <View key={place.name} style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}>
-                    <View style={styles.row}>
-                <View style={styles.edges}>
-                    <Text>{index + 1}</Text>
-                </View>
+                <View style={styles.row}>
+                    <View style={styles.stars}>
+                        <Stars rating={place.rating} /> 
+                    </View>
 
-                <View style={styles.nameAddress}>
-                    <Text>{place.name}</Text>
-                    <Text style={styles.addressText}>{place.address}</Text>
-                </View>
-                <View style={styles.edges}>
-                    <TouchableHighlight 
-                        onPress={this.infoPressed} 
-                        style={styles.button}
-                        underlayColor='#5398DC'
-                    >
-                        <Text style={styles.buttonText}>Info</Text>
-                    </TouchableHighlight>
-                </View>
+                    <View style={styles.nameAddress}>
+                        <Text>{place.name}</Text>
+                        <Text style={styles.addressText}>{place.address}</Text>
+                    </View>
+
+                    <View style={styles.edges}>
+                        <TouchableHighlight 
+                            onPress={this.infoPressed} 
+                            style={styles.button}
+                            underlayColor='#5398DC'
+                        >
+                            <Text style={styles.buttonText}>Info</Text>
+                        </TouchableHighlight>
+                    </View>
                 </View>
 
                 {
@@ -65,7 +68,6 @@ export default class RestaurantRow extends Component {
                         />
                     </View>
                 }
-
             </View>
         )
     }
@@ -82,6 +84,14 @@ const styles = StyleSheet.create({
         padding: 5,
         minWidth: 50
       }, 
+      stars: {
+          flex: 1,
+          alignItems: 'center',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          padding: 5,
+          minWidth: 50
+      },
       nameAddress: {
         flexDirection: 'column',
         flex: 8
