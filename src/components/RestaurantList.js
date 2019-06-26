@@ -13,61 +13,66 @@ import PizzaImage from 'images/pizza.png'
 
 export default class RestaurantList extends Component{
 
-    state = {
-      search: null,
-      restaurants: []
-    }
-  
-    componentDidMount() {
-      fetch('http://localhost:3000/restaurants')
-        .then(response => response.json())
-        .then(result => this.setState({ restaurants: result }))
-    }
-  
-    render() {
-  
-      return (
-        <View style={{
-          flex: 1
-        }}>
-  
-          <View style={{
-            marginTop: 40,
-            alignItems: 'center'
-          }}>
-            <Image source={PizzaImage} />
-          </View>
-          <Header />
-          <TextInput 
-            style={styles.input} 
-            placeholder="Live Search" 
-            onChangeText={text => {
-              this.setState({search: text})
-            }}
-            value={this.state.search}
-          />
-  
-          <FlatList
-            data={
-              this.state.restaurants.filter(place => {
-                return !this.state.search || 
-                  place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1
-              })
-            }
-            renderItem={({ item, index }) => 
-              <RestaurantRow 
-                place={item} 
-                index={index} 
-                navigation={this.props.navigation}
-              />
-            }
-            keyExtractor={item => item.name}
-            initialNumToRender={20}
-          />
-        </View>
-      );
-    }
+  static navigationOptions = {
+    header: null
   }
+
+  state = {
+    search: null,
+    restaurants: []
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3000/restaurants')
+      .then(response => response.json())
+      .then(result => this.setState({ restaurants: result }))
+  }
+
+  render() {
+
+    return (
+      <View style={{
+        flex: 1,
+        backgroundColor: '#FFFFFF'
+      }}>
+
+        <View style={{
+          marginTop: 40,
+          alignItems: 'center'
+        }}>
+          <Image source={PizzaImage} />
+        </View>
+        <Header />
+        <TextInput 
+          style={styles.input} 
+          placeholder="Live Search" 
+          onChangeText={text => {
+            this.setState({search: text})
+          }}
+          value={this.state.search}
+        />
+
+        <FlatList
+          data={
+            this.state.restaurants.filter(place => {
+              return !this.state.search || 
+                place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1
+            })
+          }
+          renderItem={({ item, index }) => 
+            <RestaurantRow 
+              place={item} 
+              index={index} 
+              navigation={this.props.navigation}
+            />
+          }
+          keyExtractor={item => item.name}
+          initialNumToRender={20}
+        />
+      </View>
+    );
+  }
+}
   
   const styles = StyleSheet.create({
   
