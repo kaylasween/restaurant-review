@@ -11,6 +11,7 @@ import {
 import RestaurantList from 'components/RestaurantList'
 import RestaurantInfo from 'components/RestaurantInfo'
 import About from 'components/About'
+import AddReview from 'components/AddReview'
 
 const List = createStackNavigator({
   Home: { screen: RestaurantList },
@@ -49,7 +50,18 @@ const Tabs = createBottomTabNavigator({
   }
 })
 
-const App = createAppContainer(Tabs)
+const Modal = createStackNavigator({
+  Tabs: { screen: Tabs },
+  AddReview: { screen: AddReview }
+}, { 
+  mode: 'modal',
+  headerMode: 'none',
+  navigationOptions: {
+    gesturesEnabled: false
+  }
+})
+
+const App = createAppContainer(Modal)
 
 
 
